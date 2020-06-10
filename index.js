@@ -1,72 +1,8 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
-//DX RACER - JSON
-/*
 (async () => {
-    let pageUrl = 'https://www.dxracer.com.br/cadeira-dxracer-racing-rw01n-8-p985975';
-
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto(pageUrl, { waitUntil: 'networkidle2' });
-
-    let data = await page.evaluate(() => {
-        let productName = document.querySelector('.product-name').innerText;
-        let productPrice = document.querySelector('.sale-price span').innerText;
-        let timeStamp = new Date().getTime();
-
-        return {
-            productName,
-            productPrice,
-            timeStamp
-        }
-    });
-
-    //output to JSon file
-    fs.appendFile('scrape_results.json', JSON.stringify(data) + '\n', function (err) {
-        if (err) return console.log(err);
-    });
-
-    await browser.close();
-
-})();
-
-
-//KABUM ALPHA GAMER - JSON
-(async () => {
-    let pageUrl = 'https://www.kabum.com.br/produto/93907/cadeira-gamer-alpha-gamer-polaris-racing-black';
-
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto(pageUrl, { waitUntil: 'networkidle2' });
-
-    console.log(page.evaluate(() => window.find("R$")));
-
-    let data = await page.evaluate(() => {
-        let productName = document.querySelector('h1[itemprop="name"]').innerText;
-        let productPrice = document.querySelector('meta[itemprop="price"]').getAttribute('content');
-        let timeStamp = new Date().getTime();
-
-        return {
-            productName,
-            productPrice,
-            timeStamp
-        }
-    });
-
-    //output to JSon file
-    fs.appendFile('scrape_results.json', JSON.stringify(data) + '\n', function (err) {
-        if (err) return console.log(err);
-    });
-
-    await browser.close();
-
-})();
-*/
-
-//DXRACER - PUPPETEER HTML EXTRACT
-(async () => {
-    let pageUrl = 'https://produto.mercadolivre.com.br/MLB-1337187769-banco-rustico-banquinho-madeira-rustica-banco-pequeno-_JM?quantity=1&variation=53220388316&onAttributesExp=true#position=21&type=item&tracking_id=ae62ce72-41bb-4403-9f2f-71a7178ad016';
+    let pageUrl = 'https://www.ultrafarma.com.br/cimegripe-com-20-capsulas-validade-julho-2019';
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -83,30 +19,30 @@ const fs = require('fs');
 
     let htmlFile = fs.readFileSync("output.html", "utf8");
     let arr = htmlFile.split(/\r?\n/);
-    arr.forEach((line, idx) => {
-        if(line.includes("R$")){
-            console.log((idx+1)+':'+ line);
+    let reaisRe = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g);
+    let matchList = {};
+    let matchListIdx = 0;
+    arr.forEach((line, idx) => { //Percorre linha por linha do html
+        if (line.match(reaisRe)){ //Se encontrar algo no formato de reais na linha em questão
+            line.match(reaisRe).forEach((lineFoundValue)=>{ //Percorre os valores encontrados na linha
+                let data = { //Cria uma estrutura com as informações daquele valor
+                    foundValue: lineFoundValue,      //O próprio valor
+                    htmlLine: (idx+1),               //A linha encontrada
+                    htmlPrevLineContent: arr[idx-1], //O conteúdo da linha anterior
+                    htmlLineContent: line,           //O conteúdo da linha
+                    htmlNextLineContent: arr[idx+2]  //O conteúdo da linha seguinte
+                };
+                matchList[matchListIdx] = []; //Inicializa a posição do array de valores encontrados
+                matchList[matchListIdx].push(data); //Adiciona o novo registro junto aos outros valores encontrados
+                matchListIdx++; //+1 para o índice de valores encontrador
+            });
         }
     });
 
+    //console.log(matchList[5]);
+    //console.log(matchList[6]);
+    //console.log(matchList[7]);
+    console.log("Foram encontrados " + (matchListIdx+1) +" valores em reais na página.");
+
     await browser.close();
-
 })();
-
-
-//DX RACER - CHEERIO
-/*
-let options = {
-    url: 'https://www.dxracer.com.br/cadeira-dxracer-racing-rw01n-8-p985975',
-    headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.100 Safari/537.36'
-    }
-};
-request(options, (error, response, html) => {
-    if(!error && response.statusCode == 200){
-        console.log(html.length);
-    }else{
-        console.log(response.statusCode);
-    }
-});
-*/
