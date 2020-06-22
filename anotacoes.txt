@@ -1,0 +1,6 @@
+Cada regra retorna um valor booleano. 
+    True, indica um ponto a favor da seleção do valor como preço do produto.
+    False, não implica em nada.
+
+Regra 1
+    Existe a string "R$" na linha?
