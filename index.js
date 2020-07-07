@@ -1,9 +1,12 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const { measureMemory } = require('vm');
 
 (async () => {
-    let pageUrl = 'https://lojamelissa.com.br/mini-melissa-possession#options=13167,10335';
-
+    //let pageUrl = 'https://www.mercadolivre.com.br/moto-g8-plus-dual-sim-64-gb-cosmic-blue-4-gb-ram/p/MLB15273216?source=search#searchVariation=MLB15273216&position=1&type=product&tracking_id=e65178bc-1e6e-49a1-9e24-8a9cd86698b0';
+    //let pageUrl = 'https://www.dxracer.com.br/cadeira-dxracer-racing-rw01n-8-p985975';
+    let pageUrl = 'https://www.cea.com.br/camisa-feminina-estampada-estrelas-com-bolso-manga-curta-verde-escuro-9942341-verde_escuro/p';
+    
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(pageUrl, { waitUntil: 'networkidle2' });
@@ -34,12 +37,38 @@ const fs = require('fs');
             });
         }
     });
-
     
-    //matchList.forEach()
+    //Clue 1
+    let re = new RegExp(/R\$/g);
+    matchList.forEach((object) => {
+        if (object.htmlLineContent.match(re)){
+            object.clue1 = true;
+        }else{
+            object.clue1 = false;
+        }
+    });
 
-    console.log(matchList);
-    console.log("Foram encontrados " + (matchList.length+1) +" valores em reais na página.");
+    //Clue 2
+    re = new RegExp(/<span.+?(?=>)>/g);
+    matchList.forEach((object) => {
+        if (object.htmlLineContent.match(re)){
+            object.clue2 = true;
+        }else{
+            object.clue2 = false;
+        }
+    });
+
+    //Print
+    matchList.forEach((object) => {
+        console.log("-------------------");
+        console.log(object.foundValue);
+        //console.log(object.htmlLine);
+        console.log(object.clue1);
+        console.log(object.clue2);
+    });
+
+    //console.log(matchList);
+    console.log("Foram encontrados " + (matchList.length) +" valores em reais na página.");
 
     await browser.close();
 })();

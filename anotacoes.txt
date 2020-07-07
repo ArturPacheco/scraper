@@ -1,6 +1,12 @@
-Cada regra retorna um valor booleano. 
+Cada pista retorna um valor booleano. 
     True, indica um ponto a favor da seleção do valor como preço do produto.
     False, não implica em nada.
 
-Regra 1
+Clue1 (Adicionar pq isso e uma pista)
     Existe a string "R$" na linha?
+
+Clue2
+    O valor está dentro de uma tag "<span>"?
+
+Clue3
+    E o maior item?
