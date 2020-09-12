@@ -1,7 +1,5 @@
 const puppeteer = require('puppeteer');
-const fs = require('fs');
-const { measureMemory } = require('vm');
-const { html } = require('cheerio');
+const cheerio = require ('cheerio');
 
 (async () => {
     //let pageUrl = 'https://www.mercadolivre.com.br/moto-g8-plus-dual-sim-64-gb-cosmic-blue-4-gb-ram/p/MLB15273216?source=search#searchVariation=MLB15273216&position=1&type=product&tracking_id=e65178bc-1e6e-49a1-9e24-8a9cd86698b0';
@@ -14,8 +12,13 @@ const { html } = require('cheerio');
     const page = await browser.newPage();
     await page.goto(pageUrl, { waitUntil: 'networkidle2' });
 
-    //const html = await page.content();
+    /* TESTE TENTANDO SALVAR TODOS OS ELEMENTOS DE UMA PAGINA (BROWSER CONTEXT)
+    const elementHandle = await page.$$('*'); // returns <Promise<Array<ElementHandle>>>
+    const propertyElHandle = await elementHandle[0].getProperty('innerText');
+    console.log(await propertyElHandle.jsonValue());
+    */
 
+    /* TESTE USANDO XPATH
     //Puppeteer nao suporta XPATH 2.0 (que da suporte a expressoes regulares)
     const myXpath = "//*[matches(text(),'/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g')]";
     // wait for element defined by XPath appear in page
@@ -26,16 +29,12 @@ const { html } = require('cheerio');
     for (let i = 0; i<elHandle.length; i++){
         console.log(await page.evaluate(el => el.textContent, elHandle[i]));
     }
+    */
 
-    /*fs.writeFileSync("output.html", html, function(err) {
-        if(err) {
-            return console.log(err);
-        }
-        console.log("The file was saved!");
-    });
+   const html = await page.content();
 
-    let htmlFile = fs.readFileSync("output.html", "utf8");
-    let arr = htmlFile.split(/\r?\n/);
+   /*
+    let arr = html.split(/\r?\n/);
     let reaisRe = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g);
     let matchList = [];
     arr.forEach((line, idx) => { //Percorre linha por linha do html
@@ -76,13 +75,29 @@ const { html } = require('cheerio');
     matchList.forEach((object) => {
         console.log("-------------------");
         console.log(object.foundValue);
-        //console.log(object.htmlLine);
+        console.log(object.htmlLine);
         console.log(object.clue1);
         console.log(object.clue2);
     });
 
     //console.log(matchList);
-    console.log("Foram encontrados " + (matchList.length) +" valores em reais na página.");
-    */
+    console.log("Foram encontrados " + (matchList.length) +" valores em reais na página.");*/
+   
+    $ = cheerio.load(html);
+    let reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g);
+    const matchList = [];
+
+    $('body *').contents().each(function(i, element){ //Cheerio cria um loop por todos os elementos da página
+        if (element.nodeType === 3 && reaisRegex.test($(element).toString().trim())) { //Se o nodo html for do tipo 3 (texto) e possui a expressão regular
+            matchList.push(element);
+        }
+    });
+
+    console.log(matchList[1]);
+    console.log(matchList.length);
+    console.log(matchList[1].toString().trim());
+    console.log(matchList[1].nodeType);
+    console.log(matchList[1].data);
+
     await browser.close();
 })();
