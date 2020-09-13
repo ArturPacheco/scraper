@@ -12,92 +12,34 @@ const cheerio = require ('cheerio');
     const page = await browser.newPage();
     await page.goto(pageUrl, { waitUntil: 'networkidle2' });
 
-    /* TESTE TENTANDO SALVAR TODOS OS ELEMENTOS DE UMA PAGINA (BROWSER CONTEXT)
-    const elementHandle = await page.$$('*'); // returns <Promise<Array<ElementHandle>>>
-    const propertyElHandle = await elementHandle[0].getProperty('innerText');
-    console.log(await propertyElHandle.jsonValue());
-    */
+    const html = await page.content();
 
-    /* TESTE USANDO XPATH
-    //Puppeteer nao suporta XPATH 2.0 (que da suporte a expressoes regulares)
-    const myXpath = "//*[matches(text(),'/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g')]";
-    // wait for element defined by XPath appear in page
-    await page.waitForXPath(myXpath);
-    // evaluate XPath expression of the target selector (it return array of ElementHandle)
-    let elHandle = await page.$x(myXpath);
-    // prepare to get the textContent of the selector above (use page.evaluate)
-    for (let i = 0; i<elHandle.length; i++){
-        console.log(await page.evaluate(el => el.textContent, elHandle[i]));
-    }
-    */
-
-   const html = await page.content();
-
-   /*
-    let arr = html.split(/\r?\n/);
-    let reaisRe = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g);
-    let matchList = [];
-    arr.forEach((line, idx) => { //Percorre linha por linha do html
-        if (line.match(reaisRe)){ //Se encontrar algo no formato de reais na linha em questão
-            line.match(reaisRe).forEach((lineFoundValue)=>{ //Percorre os valores encontrados na linha
-                matchList.push({
-                    foundValue: lineFoundValue,      //O próprio valor
-                    htmlLine: (idx+1),               //A linha encontrada
-                    htmlPrevLineContent: arr[idx-1], //O conteúdo da linha anterior
-                    htmlLineContent: line,           //O conteúdo da linha
-                    htmlNextLineContent: arr[idx+2]  //O conteúdo da linha seguinte
+    //https://stackoverflow.com/questions/50993337/how-do-i-navigate-dom-elements-in-puppeteer
+    const nodeList = await page.evaluate(function() {
+        let nodes = document.querySelectorAll('body *');
+        const filteredNodes = [];
+        nodes.forEach(function (node) {
+            if(node.innerText && node.childElementCount == 0){
+                var style = window.getComputedStyle(node, '');
+                var styleValues = [];
+                for (var i=0; i<style.length; i++) {
+                    styleValues.push({
+                        attribute: style[i],
+                        value: style.getPropertyValue(style[i])
+                    });
+                }
+            
+                filteredNodes.push({
+                    tagName: node.tagName,
+                    innerText: node.innerText,
+                    hasChildren: node.childElementCount,
+                    computedCss: styleValues
                 });
-            });
-        }
+            }
+        })
+        return filteredNodes;
     });
-
-    //Clue 1
-    let re = new RegExp(/R\$/g);
-    matchList.forEach((object) => {
-        if (object.htmlLineContent.match(re)){
-            object.clue1 = true;
-        }else{
-            object.clue1 = false;
-        }
-    });
-
-    //Clue 2
-    re = new RegExp(/<span.+?(?=>)>/g);
-    matchList.forEach((object) => {
-        if (object.htmlLineContent.match(re)){
-            object.clue2 = true;
-        }else{
-            object.clue2 = false;
-        }
-    });
-
-    //Print
-    matchList.forEach((object) => {
-        console.log("-------------------");
-        console.log(object.foundValue);
-        console.log(object.htmlLine);
-        console.log(object.clue1);
-        console.log(object.clue2);
-    });
-
-    //console.log(matchList);
-    console.log("Foram encontrados " + (matchList.length) +" valores em reais na página.");*/
-   
-    $ = cheerio.load(html);
-    let reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g);
-    const matchList = [];
-
-    $('body *').contents().each(function(i, element){ //Cheerio cria um loop por todos os elementos da página
-        if (element.nodeType === 3 && reaisRegex.test($(element).toString().trim())) { //Se o nodo html for do tipo 3 (texto) e possui a expressão regular
-            matchList.push(element);
-        }
-    });
-
-    console.log(matchList[1]);
-    console.log(matchList.length);
-    console.log(matchList[1].toString().trim());
-    console.log(matchList[1].nodeType);
-    console.log(matchList[1].data);
+    console.log(nodeList[0]);
 
     await browser.close();
 })();
