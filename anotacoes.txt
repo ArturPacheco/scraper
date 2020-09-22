@@ -1,12 +1,10 @@
-Cada pista retorna um valor booleano. 
-    True, indica um ponto a favor da seleção do valor como preço do produto.
-    False, não implica em nada.
+Critérios de exclusão
+    1 - Not match reaisRegex (regex that represents a value in brazilian currency)
+    2 - Child nodes > 0
+    3 - Ser tag <script>
+    4 - Set tag <style>
 
-Clue1
-    Existe a string "R$" na linha?
-
-Clue2
-    O valor está dentro de uma tag "<span>"?
-
-Clue3
-    É o maior item?
+Critérios para comparação
+    1 - É o maior item (Suposição)
+    2 - Aparece mais x no código (Suposição)
+    3 - O valor esá dentro de uma tag <span>
