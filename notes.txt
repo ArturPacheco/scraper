@@ -1,0 +1,11 @@
+Critérios de exclusão
+    1 - Not match reaisRegex (regex that represents a value in brazilian currency)
+    2 - Child nodes > 0  (Must be text)
+    3 - Ser tag <script>
+    4 - Set tag <style>
+
+Critérios para comparação
+    1 - É o maior item (Hipótese)
+    2 - Aparece mais x no código (Hipótese)
+        Aparece em tag script e em metadados
+    3 - O valor está dentro de uma tag <span>
