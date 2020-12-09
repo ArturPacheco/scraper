@@ -10,9 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
-    "puppeteer": "^3.0.1",
+    "puppeteer": "^3.3.0",
     "puppeteer-select": "^1.0.3",
     "request": "^2.88.2",
-    "scrape-it": "^5.2.3"
+    "scrape-it": "^5.2.4"
   }
 }
