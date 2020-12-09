@@ -1,5 +1,10 @@
 [
     {
+        "siteName": "Mercado Livre",
+        "pageUrl": "https://www.mercadolivre.com.br/samsung-galaxy-j2-core-dual-sim-16-gb-preto-1-gb-ram/p/MLB15030554",
+        "candidates": []
+    },
+    {
         "siteName": "Americanas",
         "pageUrl": "https://www.americanas.com.br/produto/190896484?pfm_carac=Patinete%20Infantil&pfm_page=category&pfm_pos=grid&pfm_type=vit_product_grid",
         "candidates": []
@@ -62,6 +67,76 @@
     {
         "siteName": "Ponto Frio",
         "pageUrl": "https://www.pontofrio.com.br/Eletrodomesticos/GeladeiraeRefrigerador/2Portas/refrigerador-samsung-inverter-frost-free-rt46k6261s8-com-twin-cooling-plus-easy-slide-cool-pack-inox-e-iluminacao-em-led-453l-13193583.html?IdSku=13193583",
+        "candidates": []
+    },
+    {
+        "siteName": "Shopee",
+        "pageUrl": "https://shopee.com.br/Pulseira-Camuflada-Xiaomi-Mi-Band-3-e-4-Miband-de-Silicone-i.296425301.7550527572",
+        "candidates": []
+    },
+    {
+        "siteName": "Kabum",
+        "pageUrl": "https://m.kabum.com.br/produto/96781/headset-gamer-sharkoon-branco-rush-er3",
+        "candidates": []
+    },
+    {
+        "siteName": "Madeiramadeira",
+        "pageUrl": "https://m.kabum.com.br/produto/96781/headset-gamer-sharkoon-branco-rush-er3",
+        "candidates": []
+    },
+    {
+        "siteName": "Zattini",
+        "pageUrl": "https://www.zattini.com.br/bone-cavalera-aba-curva-miguel-masculino-nude-D81-4111-203",
+        "candidates": []
+    },
+    {
+        "siteName": "Marisa",
+        "pageUrl": "https://www.marisa.com.br/mule-feminino-metalizado-bico-fino-mississipi-rosa/p/10044972417",
+        "candidates": []
+    },
+    {
+        "siteName": "c&a",
+        "pageUrl": "https://www.cea.com.br/oculos-de-sol-quadrado-feminino-yessica-tartaruga-9945446-tartaruga/p",
+        "candidates": []
+    },
+    {
+        "siteName": "Dafiti",
+        "pageUrl": "https://m.dafiti.com.br/Bone-Rusty-Chron-Ii-Azul-Marinho-5251606.html",
+        "candidates": []
+    },
+    {
+        "siteName": "Enjoei",
+        "pageUrl": "https://www.enjoei.com.br/p/camisa-cinza-com-bolsos-h-amp-m-48034512",
+        "candidates": []
+    },
+    {
+        "siteName": "Natura",
+        "pageUrl": "https://www.natura.com.br/p/sabonete-em-barra-puro-vegetal-cereja-e-avela-tododia-5un-de-90g/95840",
+        "candidates": []
+    },
+    {
+        "siteName": "Boticario",
+        "pageUrl": "https://www.boticario.com.br/kit-malbec-B81113/",
+        "candidates": []
+    },
+    {
+        "siteName": "Leroy Merlin",
+        "pageUrl": "https://www.leroymerlin.com.br/argamassa-cozinhas-e-banheiros-interno-cinza-15kg-axton_89296186",
+        "candidates": []
+    },
+    {
+        "siteName": "Riachuelo",
+        "pageUrl": "https://www.riachuelo.com.br/camiseta-ariel-disney-branco-13942085_sku",
+        "candidates": []
+    },
+    {
+        "siteName": "Centauro",
+        "pageUrl": "https://www.centauro.com.br/tenis-mizuno-wave-prophecy-9-masculino-943853.html?cor=G0",
+        "candidates": []
+    },
+    {
+        "siteName": "Ultrafarma",
+        "pageUrl": "https://www.ultrafarma.com.br/dipirona-500mgml-gotas-20ml-ems-generico",
         "candidates": []
     }
 ]

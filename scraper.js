@@ -1,15 +1,20 @@
+const productPages = require('./product-pages.json');
+const clues = require('./clues');
+const util = require('./util');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
-const productPages = require('./product-pages.json');
-const clues = require('./clues.js');
+
+
 
 console.log(`%c
 ======================================
               Running...
 ======================================`, "font-family:monospace");
 
+process.setMaxListeners(0); // <== Important line
+
 productPages.forEach(function (target) { //Roda o programa para cada item na lista de sites do arquivo JSON
-    if (target.siteName.toLowerCase() != "amagazine luiza".toLowerCase()) { //Utilizado para testar em algum site especifico (remover depois)
+    if (target.siteName.toLowerCase() == "melissa".toLowerCase()) { //Utilizado para testar em algum site especifico (remover depois)
         (async () => {
             console.log('Visiting ' + target.siteName + '...');
             const browser = await puppeteer.launch({
@@ -48,8 +53,7 @@ productPages.forEach(function (target) { //Roda o programa para cada item na lis
                                 nodeName: node.nodeName,
                                 innerText: node.innerText,
                                 hasChildren: node.childElementCount,
-                                computedCss: JSON.stringify(styleValues),
-                                cluesResults: []
+                                computedCss: JSON.stringify(styleValues)
                             });
                         }
                     } catch {
@@ -65,15 +69,8 @@ productPages.forEach(function (target) { //Roda o programa para cada item na lis
             clues.getOccurrences(target.candidates, bodyHtml);
 
             //Imprime os elementos encontrados
-            console.log('Number of candidates: ' + target.candidates.length + '\n');
-
-            target.candidates.forEach(node => console.log(
-                node.innerText + ": "
-                + '\ngetFontSize = ' + node.cluesResults.getFontSize
-                + '\ngetOccurrences = ' + node.cluesResults.getOccurrences
-                + '\ntagName = ' + node.tagName
-                + '\n'
-            ));
+            //util.printDetails(target.candidates);
+            util.evaluateCriteria(target.candidates);
 
             await browser.close();
         })();

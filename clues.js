@@ -3,8 +3,7 @@ function getFontSize(candidates) {
         let parsedCss = JSON.parse(candidate.computedCss);
         let fontSize = parsedCss['font-size'].replace('px','');
         fontSize = parseFloat(fontSize);
-        //candidate.cluesResults = JSON.stringify({ 'getFontSize': fontSize })
-        candidate.cluesResults.getFontSize = fontSize;
+        candidate.fontSize = fontSize;
     });
 }
 
@@ -18,8 +17,7 @@ function getOccurrences(candidates, bodyHtml) {
     candidates.forEach(function (candidate) {
         searchString = new RegExp(candidate.innerText.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&'), 'gmis');
         var occurrences = (bodyHtml.match(searchString) || []).length;
-        //candidate.cluesResults += JSON.stringify({ 'getOcurrences': occurrences });
-        candidate.cluesResults.getOccurrences = occurrences;
+        candidate.getOccurrences = occurrences;
     });
 }
 
