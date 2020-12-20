@@ -1,9 +1,8 @@
+const puppeteer = require('puppeteer');
+const fs = require('fs');
 const productPages = require('./product-pages.json');
 const clues = require('./clues');
 const util = require('./util');
-const puppeteer = require('puppeteer');
-const fs = require('fs');
-
 
 
 console.log(`%c
@@ -11,12 +10,11 @@ console.log(`%c
               Running...
 ======================================`, "font-family:monospace");
 
-process.setMaxListeners(0); // <== Important line
+process.setMaxListeners(0); // Remove limitação dos programas concomitantes
 
 productPages.forEach(function (target) { //Roda o programa para cada item na lista de sites do arquivo JSON
-    if (target.siteName.toLowerCase() == "melissa".toLowerCase()) { //Utilizado para testar em algum site especifico (remover depois)
+    if (target.id <= 10) { //Utilizado para testar em algum site especifico (remover depois)
         (async () => {
-            console.log('Visiting ' + target.siteName + '...');
             const browser = await puppeteer.launch({
                 headless: false,
                 stealth: true
@@ -70,7 +68,8 @@ productPages.forEach(function (target) { //Roda o programa para cada item na lis
 
             //Imprime os elementos encontrados
             //util.printDetails(target.candidates);
-            util.evaluateCriteria(target.candidates);
+            target.chosenValue = util.evaluateCriteria(target.candidates);
+            console.log(target.siteName + ": " + target.chosenValue);
 
             await browser.close();
         })();

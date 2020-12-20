@@ -1,11 +1,15 @@
 function evaluateCriteria(candidates) {
-    var chosen = candidates[0];
-    candidates.forEach(candidate => {
-        if (candidate.fontSize >= chosen.fontSize){
-            chosen = candidate;
-        }
-    });
-    console.log(chosen.innerText);
+    if (candidates.length > 0) {
+        var chosen = candidates[0];
+        candidates.forEach(candidate => {
+            if (candidate.fontSize >= chosen.fontSize) {
+                chosen = candidate;
+            }
+        });
+        return chosen.innerText;
+    } else {
+        return 0;
+    }
 }
 
 //Print detailed information about each price candidate
