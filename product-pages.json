@@ -1,55 +1,66 @@
 [
     {
+        "id": 1,
         "siteName": "Mercado Livre",
         "pageUrl": "https://www.mercadolivre.com.br/samsung-galaxy-j2-core-dual-sim-16-gb-preto-1-gb-ram/p/MLB15030554",
         "candidates": []
     },
     {
+        "id": 2,
         "siteName": "Americanas",
         "pageUrl": "https://www.americanas.com.br/produto/190896484?pfm_carac=Patinete%20Infantil&pfm_page=category&pfm_pos=grid&pfm_type=vit_product_grid",
         "candidates": []
     },
     {
+        "id": 3,
         "siteName": "Amazon",
         "pageUrl": "https://www.amazon.com.br/Smartphone-Samsung-Galaxy-Core-Preto/dp/B089QRMWTK/ref=sr_1_1?__mk_pt_BR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=Samsung+Galaxy+J2+Core+16GB&qid=1600733103&sr=8-1",
         "candidates": []
     },
     {
+        "id": 4,
         "siteName": "Magazine Luiza",
         "pageUrl": "https://www.magazineluiza.com.br/smartphone-samsung-galaxy-a21s-64gb-branco-4g-4gb-ram-65-cam-quadrupla-selfie-13mp/p/155584200/te/galx/",
         "candidates": []
     },
     {
+        "id": 5,
         "siteName": "Casas Bahia",
         "pageUrl": "https://m.casasbahia.com.br/sofa-3-lugares-phormatta-decor-berlin-ii-com-assento-retratil-e-encosto-reclinavel-em-tecido-veludo-206-cm-de-largura-55003966.html",
         "candidates": []
     },
     {
+        "id": 6,
         "siteName": "Submarino",
         "pageUrl": "https://www.submarino.com.br/produto/1735124813/smartphone-samsung-galaxy-j2-core-16gb-dual-chip-android-go-8-1-tela-5-quad-core-4g-camera-8mp-preto?pfm_carac=samsung%20galaxy%20j2&pfm_page=search&pfm_pos=grid&pfm_type=search_page",
         "candidates": []
     },
     {
+        "id": 7,
         "siteName": "Carrefour",
         "pageUrl": "https://www.carrefour.com.br/smartphone-samsung-j260-rev-galaxy-j2-core-violeta-16gb-mp26679199/p",
         "candidates": []
     },
     {
+        "id": 8,
         "siteName": "Extra",
         "pageUrl": "https://www.extra.com.br/TelefoneseCelulares/Smartphones/Android/smartphone-galaxy-j2-core-16gb-8mp-tela-5-quot-1504015457.html?IdSku=1504015457",
         "candidates": []
     },
     {
+        "id": 9,
         "siteName": "Shoptime",
         "pageUrl": "https://www.shoptime.com.br/produto/134174786/smartphone-samsung-galaxy-j2-core-16gb-dual-chip-android-8-1-tela-5-quad-core-1-4ghz-4g-camera-8mp-preto?pfm_carac=galaxy%20j2&pfm_page=search&pfm_pos=grid&pfm_type=search_page",
         "candidates": []
     },
     {
+        "id": 10,
         "siteName": "AliExpress",
         "pageUrl": "https://pt.aliexpress.com/item/4000417762721.html?spm=a2g0o.productlist.0.0.7c5ebddbDHESll&algo_pvid=e0ca1220-e289-4241-a2da-3bdf78f6d22c&algo_expid=e0ca1220-e289-4241-a2da-3bdf78f6d22c-2&btsid=0ab6f82216007340195264907e6202&ws_ab_test=searchweb0_0,searchweb201602_,searchweb201603_",
         "candidates": []
     },
     {
+        "id": 11,
         "siteName": "Netshoes",
         "pageUrl": "https://www.netshoes.com.br/smartwatch-samsung-galaxy-watch-active2-44mm-4gb-preto-817-9605-006",
         "candidates": []
@@ -81,7 +92,7 @@
     },
     {
         "siteName": "Madeiramadeira",
-        "pageUrl": "https://m.kabum.com.br/produto/96781/headset-gamer-sharkoon-branco-rush-er3",
+        "pageUrl": "https://www.madeiramadeira.com.br/sofa-austin-2-82m-retratil-reclinavel-com-molas-no-assento-e-almofadas-tecido-suede-1963252.html",
         "candidates": []
     },
     {

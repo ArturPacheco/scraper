@@ -12,8 +12,10 @@ console.log(`%c
 
 process.setMaxListeners(0); // Remove limitação dos programas concomitantes
 
+//https://stackoverflow.com/questions/48317725/is-it-safe-to-run-multiple-instances-of-puppeteer-at-the-same-time
+
 productPages.forEach(function (target) { //Roda o programa para cada item na lista de sites do arquivo JSON
-    if (target.id <= 10) { //Utilizado para testar em algum site especifico (remover depois)
+    if (target.id <= 2) { //Utilizado para testar em algum site especifico (remover depois)
         (async () => {
             const browser = await puppeteer.launch({
                 headless: false,
