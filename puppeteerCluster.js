@@ -6,10 +6,8 @@ const util = require('./util');
 //https://github.com/puppeteer/puppeteer/blob/main/src/common/DeviceDescriptors.ts
 
 async function render({ page, data: item }) {
-    //await page.setCacheEnabled(false);
     //O setUserAgent e o setViewport fazem a pagina simular um Galaxy S5
     await page.setUserAgent('Mozilla/5.0 (Linux; Android 5.0; SM-G900P Build/LRX21T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3765.0 Mobile Safari/537.36')
-    //await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3419.0 Safari/537.36')
     await page.setViewport({
         width: 360,
         height: 640,
