@@ -38,7 +38,8 @@ async function render({ page, data: item }) {
                         nodeName: node.nodeName,
                         innerText: node.innerText,
                         hasChildren: node.childElementCount,
-                        computedCss: JSON.stringify(styleValues)
+                        computedCss: JSON.stringify(styleValues),
+                        chances: 'not_verified'
                     });
                 }
             } catch {
@@ -51,13 +52,14 @@ async function render({ page, data: item }) {
     item.candidates = nodeList;
 
     //Coleta pistas necessarias para encontrar o preço
-    clues.getFontSize(item.candidates);
-    clues.getOccurrences(item.candidates, bodyHtml);
+    clues.setFontSize(item.candidates);
+    clues.setOccurrences(item.candidates, bodyHtml);
+    clues.fontSizeRankChances(item.candidates);
+    clues.tagNameChances(item.candidates);
 
     //Imprime os elementos encontrados
     //util.printDetails(target.candidates);
     item.chosenValue = util.evaluateCriteria(item.candidates);
-    console.log(item.siteName + ": " + item.chosenValue);
 }
 
 
@@ -65,9 +67,9 @@ async function render({ page, data: item }) {
 async function main() {
     const cluster = await Cluster.launch({
         concurrency: Cluster.CONCURRENCY_CONTEXT,
-        maxConcurrency: 7,
+        maxConcurrency: 4,
         monitor: true,
-        retryLimit: 12,
+        retryLimit: 2,
         retryDelay: 5000,
         workerCreationDelay: 1000,
         puppeteerOptions: {
@@ -80,7 +82,7 @@ async function main() {
 
     // Event handler to be called in case of problems
     cluster.on('taskerror', (err, data, willRetry) => {
-        if(!willRetry) {
+        if (!willRetry) {
             console.log(`X ${data.siteName}: ${err.message}`);
         }
     });
@@ -88,7 +90,9 @@ async function main() {
     await cluster.task(render);
 
     for (const item of productPages) {
-        await cluster.queue(item);
+        if (item.siteName == 'Renner') { //Run only 1 position
+            await cluster.queue(item);
+        }
     }
 
     await cluster.idle();

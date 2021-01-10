@@ -1,14 +1,10 @@
 function evaluateCriteria(candidates) {
     if (candidates.length > 0) {
-        var chosen = candidates[0];
-        candidates.forEach(candidate => {
-            if (candidate.fontSize >= chosen.fontSize) {
-                chosen = candidate;
-            }
-        });
-        return chosen.innerText;
-    } else {
-        return 0;
+        candidates.sort((a, b) => parseFloat(b.chances) - parseFloat(a.chances));
+        
+        candidates.slice(0,3).forEach(candidate => {
+            console.log((candidate.chances * 100).toFixed(0) + '% - ' + candidate.innerText + '     ');
+        })
     }
 }
 
