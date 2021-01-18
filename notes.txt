@@ -1,14 +1,15 @@
 Critérios de exclusão
-    1 - Não está dentro da tag <body>
-    2 - Not match reaisRegex (regex that represents a value in brazilian currency)
-    3 - Child nodes > 0 (Must be text)
+    1 - Não estar dentro da tag <body>
+    2 - Não corresponder ao reaisRegex (regex que representa um valor em Reais brasileiros)
+    3 - Nós filhos > 0 (Deve ser texto)
     4 - Ser tag <script>
     5 - Ser tag <style>
     6 - Ser tag <noscript>
+    7 - Ter tamanho de fonte maior que 0
 
-Critérios para comparação
-    getFontSize() - Possui maior font-size?
-    getOccurrences() - Aparece mais x no código
+Critérios para comparação entre candidatos
+    1 - Possuir maior font-size
+    2 - Aparece mais x no código **NAO IMPLEMENTADO**
         Aparece em tag script e em metadados
-    tagName O valor está dentro de uma tag <span>
-    yPosition
+    3 - Está dentro de uma tag como span (tags conforme pesquisa de probabilidade)
+    4 - Estar posicionado mais próximo ao topo da página (yPosition)  **NAO IMPLEMENTADO**

@@ -1,9 +1,13 @@
-function setFontSize(candidates) {
+function filterFontSize(candidates) {
     candidates.forEach(function (candidate) {
         let parsedCss = JSON.parse(candidate.computedCss);
         let fontSize = parsedCss['font-size'].replace('px', '');
         fontSize = parseFloat(fontSize);
-        candidate.fontSize = fontSize;
+        if (fontSize > 0){
+            candidate.fontSize = fontSize;
+        }else{
+            candidate.chances = 0
+        }
     });
 }
 
@@ -94,4 +98,4 @@ function setOccurrences(candidates, bodyHtml) {
     });
 }
 
-module.exports = { setFontSize, setOccurrences, fontSizeRankChances, tagNameChances };
+module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances };

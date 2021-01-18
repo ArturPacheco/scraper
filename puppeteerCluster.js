@@ -26,7 +26,11 @@ async function render({ page, data: item }) {
         const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g); //CRITERIO DE EXCLUSAO 2
         nodes.forEach(function (node) {
             try {
-                if (node.innerText.match(reaisRegex) && node.childElementCount == 0 && node.tagName !== 'SCRIPT' && node.tagName !== 'STYLE' && node.tagName !== 'NOSCRIPT') { //CRITERIO DE EXCLUSAO 2, 3, 4 e 5
+                if (reaisRegex.test(node.innerText) 
+                    && node.childElementCount == 0 
+                    && node.tagName !== 'SCRIPT' 
+                    && node.tagName !== 'STYLE' 
+                    && node.tagName !== 'NOSCRIPT') { //CRITERIO DE EXCLUSAO 2, 3, 4 e 5
                     var style = window.getComputedStyle(node, '');
                     var styleValues = {};
                     for (var i = 0; i < style.length; i++) {
@@ -52,7 +56,7 @@ async function render({ page, data: item }) {
     item.candidates = nodeList;
 
     //Coleta pistas necessarias para encontrar o preço
-    clues.setFontSize(item.candidates);
+    clues.filterFontSize(item.candidates);
     clues.setOccurrences(item.candidates, bodyHtml);
     clues.fontSizeRankChances(item.candidates);
     clues.tagNameChances(item.candidates);
