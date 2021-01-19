@@ -62,7 +62,7 @@ async function render({ page, data: item }) {
     clues.tagNameChances(item.candidates);
 
     //Imprime os elementos encontrados
-    //util.printDetails(target.candidates);
+    util.extractFloat(item.candidates);
     item.chosenValue = util.evaluateCriteria(item.candidates);
 }
 
@@ -73,7 +73,7 @@ async function main() {
         concurrency: Cluster.CONCURRENCY_CONTEXT,
         maxConcurrency: 4,
         monitor: true,
-        retryLimit: 2,
+        retryLimit: 0,
         retryDelay: 5000,
         workerCreationDelay: 1000,
         puppeteerOptions: {
