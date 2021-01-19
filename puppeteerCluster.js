@@ -2,6 +2,7 @@ const productPages = require('./product-pages.json');
 const { Cluster } = require('puppeteer-cluster');
 const clues = require('./clues');
 const util = require('./util');
+const fs = require('fs');
 
 //https://github.com/puppeteer/puppeteer/blob/main/src/common/DeviceDescriptors.ts
 
@@ -26,10 +27,10 @@ async function render({ page, data: item }) {
         const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g); //CRITERIO DE EXCLUSAO 2
         nodes.forEach(function (node) {
             try {
-                if (reaisRegex.test(node.innerText) 
-                    && node.childElementCount == 0 
-                    && node.tagName !== 'SCRIPT' 
-                    && node.tagName !== 'STYLE' 
+                if (reaisRegex.test(node.innerText)
+                    && node.childElementCount == 0
+                    && node.tagName !== 'SCRIPT'
+                    && node.tagName !== 'STYLE'
                     && node.tagName !== 'NOSCRIPT') { //CRITERIO DE EXCLUSAO 2, 3, 4 e 5
                     var style = window.getComputedStyle(node, '');
                     var styleValues = {};
@@ -63,7 +64,10 @@ async function render({ page, data: item }) {
 
     //Imprime os elementos encontrados
     util.extractFloat(item.candidates);
-    item.chosenValue = util.evaluateCriteria(item.candidates);
+    let data = util.evaluateCriteria(item.candidates)
+    item.runs.push(data);
+    delete item.candidates
+    fs.writeFileSync('product-pages.json', JSON.stringify(productPages, null, 2))
 }
 
 
@@ -72,7 +76,7 @@ async function main() {
     const cluster = await Cluster.launch({
         concurrency: Cluster.CONCURRENCY_CONTEXT,
         maxConcurrency: 4,
-        monitor: true,
+        monitor: false,
         retryLimit: 0,
         retryDelay: 5000,
         workerCreationDelay: 1000,
@@ -93,11 +97,13 @@ async function main() {
 
     await cluster.task(render);
 
-    for (const item of productPages) {
-        if (item.siteName == 'Renner') { //Run only 1 position
+    for (var item of productPages) {
+        if (item.siteName == 'Renner' || item.siteName == 'Magazine Luiza') { //Run only 1 position
             await cluster.queue(item);
+
         }
     }
+
 
     await cluster.idle();
     await cluster.close();

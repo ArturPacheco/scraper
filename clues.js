@@ -94,7 +94,7 @@ function setOccurrences(candidates, bodyHtml) {
     candidates.forEach(function (candidate) {
         searchString = new RegExp(candidate.innerText.replace(/[-[\]{}()*+!<=:?.\/\\^$|#\s,]/g, '\\$&'), 'gmis');
         var occurrences = (bodyHtml.match(searchString) || []).length;
-        candidate.getOccurrences = occurrences;
+        candidate.occurrences = occurrences;
     });
 }
 
