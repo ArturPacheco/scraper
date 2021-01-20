@@ -98,7 +98,7 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        if (item.siteName == 'Renner' || item.siteName == 'Magazine Luiza') { //Run only 1 position
+        if (item.siteName == 'Carrefour') { //Run only 1 position
             await cluster.queue(item);
 
         }

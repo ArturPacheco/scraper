@@ -17,12 +17,13 @@ function fontSizeRankChances(candidates) {
     candidates.forEach(candidate => {
         sizeRank.push(candidate.fontSize);
     });
-    var sizeRank = Array.from(new Set(sizeRank))
+    var sizeRank = Array.from(new Set(sizeRank)) //Cria um vetor apenas com os valores
     candidates.forEach(candidate => {
         switch (sizeRank.indexOf(candidate.fontSize)) {
             case 0:
                 if (candidate.chances == 'not_verified') {
                     candidate.chances = 0.9642
+                    candidate.fontSizeRankPlacement = 1
                 } else if (candidate.chances != 0) {
                     candidate.chances = candidate.chances * 0.9642
                 };
@@ -30,8 +31,10 @@ function fontSizeRankChances(candidates) {
             case 1:
                 if (candidate.chances == 'not_verified') {
                     candidate.chances = 0.0357
+                    candidate.fontSizeRankPlacement = 2
                 } else if (candidate.chances != 0) {
                     candidate.chances = candidate.chances * 0.057
+                    candidate.fontSizeRankPlacement = 0
                 };
                 break;
             default:
