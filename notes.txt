@@ -1,7 +1,7 @@
 Critérios de exclusão
     1 - Não estar dentro da tag <body>
     2 - Não corresponder ao reaisRegex (regex que representa um valor em Reais brasileiros)
-    3 - Nós filhos > 0 (Deve ser texto)
+    3 - Nós filhos > 0 (Deve ser texto) **REJEITADO POIS HASCHILDNODES() RETORNA 1 EM ALGUNS MOMENTOS**
     4 - Ser tag <script>
     5 - Ser tag <style>
     6 - Ser tag <noscript>

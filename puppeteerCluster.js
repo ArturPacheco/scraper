@@ -3,6 +3,7 @@ const { Cluster } = require('puppeteer-cluster');
 const clues = require('./clues');
 const util = require('./util');
 const fs = require('fs');
+const { notStrictEqual } = require('assert');
 
 //https://github.com/puppeteer/puppeteer/blob/main/src/common/DeviceDescriptors.ts
 
@@ -24,14 +25,16 @@ async function render({ page, data: item }) {
     const nodeList = await page.evaluate(function () {
         let nodes = document.querySelectorAll('body *'); //CRITERIO DE EXCLUSAO 1
         const filteredNodes = [];
-        const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g); //CRITERIO DE EXCLUSAO 2
+        const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/, 'g'); //CRITERIO DE EXCLUSAO 2
         nodes.forEach(function (node) {
             try {
                 if (reaisRegex.test(node.innerText)
-                    && node.childElementCount == 0
+                    && (node.childElementCount === 0 || (node.childElementCount >= 1 && node.childNodes.length > node.childElementCount))
                     && node.tagName !== 'SCRIPT'
                     && node.tagName !== 'STYLE'
                     && node.tagName !== 'NOSCRIPT') { //CRITERIO DE EXCLUSAO 2, 3, 4 e 5
+
+                    //COLETA O CSS DO ELEMENTO
                     var style = window.getComputedStyle(node, '');
                     var styleValues = {};
                     for (var i = 0; i < style.length; i++) {
@@ -42,10 +45,13 @@ async function render({ page, data: item }) {
                         tagName: node.tagName,
                         nodeName: node.nodeName,
                         innerText: node.innerText,
-                        hasChildren: node.childElementCount,
+                        nodeType: node.nodeType,
+                        hasChildNodes: node.hasChildNodes(),
+                        childElementCount: node.childElementCount, //Conta quantos elementos possui (que pode conter outros elementos)
                         computedCss: JSON.stringify(styleValues),
                         chances: 'not_verified'
                     });
+
                 }
             } catch {
                 console.log('cant!');
@@ -56,18 +62,27 @@ async function render({ page, data: item }) {
 
     item.candidates = nodeList;
 
+    /*console.log(item.candidates.length)
+    item.candidates.forEach(candidate => {
+        console.log(candidate.hasChildNodes + ' | ' + candidate.hasChildren + ' | ' + candidate.childNodeTypeText + ' | ' + candidate.innerText.substring(0, 20))
+    });*/
+
+
     //Coleta pistas necessarias para encontrar o preço
+    //clues.childNodesTypeValid(item.candidates)
     clues.filterFontSize(item.candidates);
     clues.setOccurrences(item.candidates, bodyHtml);
     clues.fontSizeRankChances(item.candidates);
     clues.tagNameChances(item.candidates);
-
-    //Imprime os elementos encontrados
     util.extractFloat(item.candidates);
+
     let data = util.evaluateCriteria(item.candidates)
+
+    util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
+
     item.runs.push(data);
-    delete item.candidates
-    fs.writeFileSync('product-pages.json', JSON.stringify(productPages, null, 2))
+    delete item.candidates //Remove a propriedade "candidatos" para que na proxima linha nao seja salva no JSON
+    fs.writeFileSync('product-pages.json', JSON.stringify(productPages, null, 2)) //Escreve novos resultados no JSON
 }
 
 
@@ -98,7 +113,7 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        if (item.siteName == 'Carrefour') { //Run only 1 position
+        if (item.siteName == 'Renner') { //Run only 1 position
             await cluster.queue(item);
 
         }

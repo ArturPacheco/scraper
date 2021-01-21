@@ -1,7 +1,24 @@
+function childNodesTypeValid (candidates){
+    //VERIFICA O TIPO DO NO DE CADA FILHO
+    candidates.forEach(candidate => {
+        if(candidate.childNodes.length > 0){
+            candidate.childNodes.forEach(childNode => {
+                if(childNode.nodeType !== 3 || childNode.nodeType !== 8){
+                    candidate.childNodesTypeValid = true
+                }else{
+                    candidate.childNodesTypeValid = false
+                }
+            })
+        }
+    })
+}
+
 function filterFontSize(candidates) {
     candidates.forEach(function (candidate) {
         let parsedCss = JSON.parse(candidate.computedCss);
+        //console.log(parsedCss['font-size'] + candidate.tagName)
         let fontSize = parsedCss['font-size'].replace('px', '');
+        
         fontSize = parseFloat(fontSize);
         if (fontSize > 0){
             candidate.fontSize = fontSize;
@@ -101,4 +118,4 @@ function setOccurrences(candidates, bodyHtml) {
     });
 }
 
-module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances };
+module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances, childNodesTypeValid };
