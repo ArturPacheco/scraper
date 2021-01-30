@@ -25,10 +25,10 @@ async function render({ page, data: item }) {
     const nodeList = await page.evaluate(function () {
         let nodes = document.querySelectorAll('body *'); //CRITERIO DE EXCLUSAO 1
         const filteredNodes = [];
-        const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/, 'g'); //CRITERIO DE EXCLUSAO 2
+        const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g); //CRITERIO DE EXCLUSAO 2
         nodes.forEach(function (node) {
             try {
-                if (reaisRegex.test(node.innerText)
+                if (node.innerText.match(reaisRegex)
                     && (node.childElementCount === 0 || (node.childElementCount >= 1 && node.childNodes.length > node.childElementCount))
                     && node.tagName !== 'SCRIPT'
                     && node.tagName !== 'STYLE'
@@ -49,7 +49,9 @@ async function render({ page, data: item }) {
                         hasChildNodes: node.hasChildNodes(),
                         childElementCount: node.childElementCount, //Conta quantos elementos possui (que pode conter outros elementos)
                         computedCss: JSON.stringify(styleValues),
-                        chances: 'not_verified'
+                        chances: 'not_verified',
+                        className: node.className,
+                        idName: node.id
                     });
 
                 }
@@ -62,12 +64,6 @@ async function render({ page, data: item }) {
 
     item.candidates = nodeList;
 
-    /*console.log(item.candidates.length)
-    item.candidates.forEach(candidate => {
-        console.log(candidate.hasChildNodes + ' | ' + candidate.hasChildren + ' | ' + candidate.childNodeTypeText + ' | ' + candidate.innerText.substring(0, 20))
-    });*/
-
-
     //Coleta pistas necessarias para encontrar o preço
     //clues.childNodesTypeValid(item.candidates)
     clues.filterFontSize(item.candidates);
@@ -78,7 +74,7 @@ async function render({ page, data: item }) {
 
     let data = util.evaluateCriteria(item.candidates)
 
-    util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
+    //util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
 
     item.runs.push(data);
     delete item.candidates //Remove a propriedade "candidatos" para que na proxima linha nao seja salva no JSON
@@ -113,10 +109,10 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        if (item.siteName == 'Renner') { //Run only 1 position
+        // if (item.siteName == 'Extra') { //Run only 1 position
             await cluster.queue(item);
 
-        }
+        // }
     }
 
 

@@ -13,45 +13,40 @@ function childNodesTypeValid (candidates){
     })
 }
 
-function filterFontSize(candidates) {
+function filterFontSize(candidates) { //Extrai do CSS do elemento o tamanho de fonte como um float
     candidates.forEach(function (candidate) {
         let parsedCss = JSON.parse(candidate.computedCss);
-        //console.log(parsedCss['font-size'] + candidate.tagName)
         let fontSize = parsedCss['font-size'].replace('px', '');
-        
-        fontSize = parseFloat(fontSize);
-        if (fontSize > 0){
-            candidate.fontSize = fontSize;
-        }else{
+        candidate.fontSize = parseFloat(fontSize)
+        if (typeof candidate.fontSize === 'undefined' || candidate.fontSize == 0){ //Se o tamanho da fonte for 0 ou indefinido zera chance do candidato ser o escolhido
             candidate.chances = 0
         }
     });
 }
 
 function fontSizeRankChances(candidates) {
-    var sizeRank = [];
-    candidates.sort((a, b) => parseFloat(b.fontSize) - parseFloat(a.fontSize));
-    candidates.forEach(candidate => {
-        sizeRank.push(candidate.fontSize);
+    var sizeRank = new Set(); //Cria um set para armazenar o ranking de tamanhos de fonte
+    candidates.sort((a, b) => parseFloat(b.fontSize) - parseFloat(a.fontSize)); //Ordena os em ordem decrescente conforme o tamanho da fonte
+    candidates.forEach(candidate => { //Adiciona ao set o tamanho das fontes
+        sizeRank.add(candidate.fontSize);
     });
-    var sizeRank = Array.from(new Set(sizeRank)) //Cria um vetor apenas com os valores
+    sizeRank = Array.from(sizeRank)
+    
     candidates.forEach(candidate => {
-        switch (sizeRank.indexOf(candidate.fontSize)) {
-            case 0:
+        candidate.fontSizeRankPlacement = sizeRank.indexOf(candidate.fontSize)+1
+        switch (candidate.fontSizeRankPlacement) {
+            case 1:
                 if (candidate.chances == 'not_verified') {
                     candidate.chances = 0.9642
-                    candidate.fontSizeRankPlacement = 1
                 } else if (candidate.chances != 0) {
                     candidate.chances = candidate.chances * 0.9642
                 };
                 break;
-            case 1:
+            case 2:
                 if (candidate.chances == 'not_verified') {
                     candidate.chances = 0.0357
-                    candidate.fontSizeRankPlacement = 2
                 } else if (candidate.chances != 0) {
                     candidate.chances = candidate.chances * 0.057
-                    candidate.fontSizeRankPlacement = 0
                 };
                 break;
             default:
