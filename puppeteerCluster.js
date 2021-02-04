@@ -30,7 +30,7 @@ async function render({ page, data: item }) {
         nodes.forEach(function (node) {
             try {
                 if (node.innerText.match(reaisRegex)
-                    && (node.childElementCount === 0 || (node.childElementCount >= 1 && node.childNodes.length > node.childElementCount))
+                    //&& (node.childElementCount === 0 || (node.childElementCount >= 1 && node.childNodes.length > node.childElementCount))
                     && node.tagName !== 'SCRIPT'
                     && node.tagName !== 'STYLE'
                     && node.tagName !== 'NOSCRIPT') { //CRITERIO DE EXCLUSAO 2, 3, 4 e 5
@@ -68,7 +68,7 @@ async function render({ page, data: item }) {
 
     //Coleta pistas necessarias para encontrar o preço
     util.extractFloat(item.candidates)
-    clues.haveLineThrough(item.candidates)
+    clues.lineThroughChances(item.candidates)
     clues.filterFontSize(item.candidates)
     //clues.setOccurrences(item.candidates, bodyHtml)
     clues.fontSizeRankChances(item.candidates)
@@ -113,7 +113,7 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        if (item.siteName == 'Madeiramadeira') { //Run only 1 position
+        if (item.siteName == 'Leroy Merlin') { //Run only 1 position
             await cluster.queue(item);
 
         }
