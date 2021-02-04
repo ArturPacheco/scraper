@@ -66,15 +66,16 @@ async function render({ page, data: item }) {
     item.candidates = nodeList;
 
     //Coleta pistas necessarias para encontrar o preço
+    util.extractFloat(item.candidates);
     clues.filterFontSize(item.candidates);
     clues.setOccurrences(item.candidates, bodyHtml);
     clues.fontSizeRankChances(item.candidates);
     clues.tagNameChances(item.candidates);
-    util.extractFloat(item.candidates);
+    
 
     let data = util.evaluateCriteria(item.candidates)
 
-    // util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
+    util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
 
     item.runs.push(data);
     delete item.candidates //Remove a propriedade "candidatos" para que na proxima linha nao seja salva no JSON
@@ -109,7 +110,7 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        if (item.siteName == 'Kabum') { //Run only 1 position
+        if (item.siteName == 'Madeiramadeira') { //Run only 1 position
             await cluster.queue(item);
 
         }

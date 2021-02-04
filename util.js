@@ -1,7 +1,18 @@
 const { printTable, Table } = require('console-table-printer');
 
 function debug(candidates, siteName) {
+
     console.log(siteName)
+    console.log('Total candidates: ' + candidates.length)
+    var haveChance = 0;
+    candidates.forEach(candidate => {
+        if (candidate.chances > 0) {
+            haveChance++
+        }
+    })
+    console.log('Have chance: ' + haveChance)
+    console.log('Zero chances: ' + (candidates.length - haveChance))
+
     const table = new Table({
         columns: [
             { name: 'Num', alignment: 'left', color: 'blue' },
@@ -10,8 +21,7 @@ function debug(candidates, siteName) {
             { name: 'hasChildNodes' },
             { name: 'price' },
             { name: 'fontSize' },
-            { name: 'tagName' },
-            { name: 'hasChild' }
+            { name: 'tagName' }
             //{ name: 'innerText', alignment: 'left' }
         ]
     })
@@ -58,23 +68,17 @@ function extractFloat(candidates) {
         candidate.price = candidate.price.map(v => v.replace('$', ''))
         candidate.price = candidate.price.map(v => v.replace(',', '.'))
         candidate.price = candidate.price.map(v => parseFloat(v))
-        if (candidate.price.length <= 1) {
-            candidate.price = candidate.price[0]
+        if (candidate.price.length > 1) {
+            candidate.chances = 0
         }
     });
+    candidates.forEach(candidate => {
+
+    })
 }
 
-//Print detailed information about each price candidate
-function printDetails(candidates) {
-    console.log('Number of candidates: ' + candidates.length + '\n');
-
-    candidates.forEach(candidate => console.log(
-        candidate.innerText + ": "
-        + '\nFont size = ' + candidate.fontSize
-        + '\ngetOccurrences = ' + candidate.getOccurrences
-        + '\ntagName = ' + candidate.tagName
-        + '\n'
-    ));
+function splitAgglomeratedResult(candidates) {
+    //
 }
 
-module.exports = { printDetails, evaluateCriteria, extractFloat, debug };
+module.exports = { evaluateCriteria, extractFloat, debug };
