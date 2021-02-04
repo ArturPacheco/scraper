@@ -9,6 +9,18 @@ function filterFontSize(candidates) { //Extrai do CSS do elemento o tamanho de f
     });
 }
 
+function haveLineThrough(candidates) {
+    candidates.forEach(candidate => {
+        let parsedCss = JSON.parse(candidate.computedCss);
+        let textDecoration = parsedCss['text-decoration-line'];
+        if (textDecoration.includes('line-through')) { 
+            candidate.lineThrough = true
+        }else{
+            candidate.lineThrough = false
+        }
+    })
+}
+
 function fontSizeRankChances(candidates) {
     var sizeRank = new Set(); //Cria um set para armazenar o ranking de tamanhos de fonte
     candidates.sort((a, b) => parseFloat(b.fontSize) - parseFloat(a.fontSize)); //Ordena os em ordem decrescente conforme o tamanho da fonte
@@ -22,16 +34,16 @@ function fontSizeRankChances(candidates) {
         switch (candidate.fontSizeRankPlacement) {
             case 1:
                 if (candidate.chances == 'not_verified') {
-                    candidate.chances = 0.9642
+                    candidate.chances = 0.9285
                 } else if (candidate.chances != 0) {
-                    candidate.chances = candidate.chances * 0.9642
+                    candidate.chances = candidate.chances * 0.9285
                 };
                 break;
             case 2:
                 if (candidate.chances == 'not_verified') {
-                    candidate.chances = 0.0357
+                    candidate.chances = 0.0714
                 } else if (candidate.chances != 0) {
-                    candidate.chances = candidate.chances * 0.057
+                    candidate.chances = candidate.chances * 0.0714
                 };
                 break;
             default:
@@ -98,4 +110,4 @@ function setOccurrences(candidates, bodyHtml) {
     });
 }
 
-module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances };
+module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances, haveLineThrough };

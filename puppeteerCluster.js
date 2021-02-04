@@ -50,6 +50,7 @@ async function render({ page, data: item }) {
                         hasChildNodes: node.hasChildNodes(),
                         childElementCount: node.childElementCount, //Conta quantos elementos possui (que pode conter outros elementos)
                         computedCss: JSON.stringify(styleValues),
+                        yPosition: node.getBoundingClientRect().top,
                         chances: 'not_verified',
                         className: node.className,
                         idName: node.id
@@ -66,11 +67,12 @@ async function render({ page, data: item }) {
     item.candidates = nodeList;
 
     //Coleta pistas necessarias para encontrar o preço
-    util.extractFloat(item.candidates);
-    clues.filterFontSize(item.candidates);
-    clues.setOccurrences(item.candidates, bodyHtml);
-    clues.fontSizeRankChances(item.candidates);
-    clues.tagNameChances(item.candidates);
+    util.extractFloat(item.candidates)
+    clues.haveLineThrough(item.candidates)
+    clues.filterFontSize(item.candidates)
+    //clues.setOccurrences(item.candidates, bodyHtml)
+    clues.fontSizeRankChances(item.candidates)
+    clues.tagNameChances(item.candidates)
     
 
     let data = util.evaluateCriteria(item.candidates)
@@ -110,7 +112,7 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        if (item.siteName == 'Madeiramadeira') { //Run only 1 position
+        if (item.siteName == 'Renner') { //Run only 1 position
             await cluster.queue(item);
 
         }

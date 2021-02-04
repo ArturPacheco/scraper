@@ -21,14 +21,16 @@ function debug(candidates, siteName) {
             { name: 'hasChildNodes' },
             { name: 'price' },
             { name: 'fontSize' },
-            { name: 'tagName' }
+            { name: 'tagName' },
+            { name: 'yPosition' },
+            { name: 'lineThrough' },
             //{ name: 'innerText', alignment: 'left' }
         ]
     })
 
     var count = 1
     candidates.forEach(candidate => {
-        if (count < 50) {
+        if (count < 100) {
             table.addRow({
                 "Num": count,
                 "chances": (candidate.chances * 100).toFixed(2),
@@ -37,6 +39,8 @@ function debug(candidates, siteName) {
                 "price": candidate.price,
                 "fontSize": candidate.fontSize,
                 "tagName": candidate.tagName,
+                "yPosition": candidate.yPosition,
+                "lineThrough": candidate.lineThrough,
                 //"innerText": (candidate.innerText.trim()).substring(0, 20),
             })
             count++
