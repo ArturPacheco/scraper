@@ -13,9 +13,9 @@ function haveLineThrough(candidates) {
     candidates.forEach(candidate => {
         let parsedCss = JSON.parse(candidate.computedCss);
         let textDecoration = parsedCss['text-decoration-line'];
-        if (textDecoration.includes('line-through')) { 
+        if (textDecoration.includes('line-through')) {
             candidate.lineThrough = true
-        }else{
+        } else {
             candidate.lineThrough = false
         }
     })
@@ -110,4 +110,28 @@ function setOccurrences(candidates, bodyHtml) {
     });
 }
 
-module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances, haveLineThrough };
+function yPositionChances(candidates) {
+    candidates.forEach(candidate => {
+        var chance = 0
+        
+        if (candidate.yPosition < 400) {
+            chance = 0
+        } else if (candidate.yPosition < 520) {
+            chance = 0.074
+        } else if (candidate.yPosition < 840) {
+            chance = 0.8148
+        } else if (candidate.yPosition < 1020) {
+            chance = 0.1111
+        } else {
+            chance = 0
+        }
+
+        if (candidate.chances == 'not_verified') {
+            candidate.chances = chance
+        } else if (candidate.chances != 0) {
+            candidate.chances = candidate.chances * chance
+        };
+    });
+}
+
+module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances, haveLineThrough, yPositionChances };

@@ -73,6 +73,7 @@ async function render({ page, data: item }) {
     //clues.setOccurrences(item.candidates, bodyHtml)
     clues.fontSizeRankChances(item.candidates)
     clues.tagNameChances(item.candidates)
+    clues.yPositionChances(item.candidates)
     
 
     let data = util.evaluateCriteria(item.candidates)
@@ -112,7 +113,7 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        if (item.siteName == 'Renner') { //Run only 1 position
+        if (item.siteName == 'Madeiramadeira') { //Run only 1 position
             await cluster.queue(item);
 
         }

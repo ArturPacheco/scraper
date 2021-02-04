@@ -31,12 +31,18 @@ function debug(candidates, siteName) {
     var count = 1
     candidates.forEach(candidate => {
         if (count < 100) {
+            var price = 0;
+            if(candidate.price.length > 1){
+                price = (candidate.price.length + ' valores')
+            }else{
+                price = candidate.price
+            }
             table.addRow({
                 "Num": count,
                 "chances": (candidate.chances * 100).toFixed(2),
                 "childElementCount": candidate.childElementCount,
                 "hasChildNodes": candidate.hasChildNodes,
-                "price": candidate.price,
+                "price": price,
                 "fontSize": candidate.fontSize,
                 "tagName": candidate.tagName,
                 "yPosition": candidate.yPosition,
