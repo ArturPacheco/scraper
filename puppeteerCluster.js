@@ -66,7 +66,6 @@ async function render({ page, data: item }) {
     item.candidates = nodeList;
 
     //Coleta pistas necessarias para encontrar o preço
-    //clues.childNodesTypeValid(item.candidates)
     clues.filterFontSize(item.candidates);
     clues.setOccurrences(item.candidates, bodyHtml);
     clues.fontSizeRankChances(item.candidates);

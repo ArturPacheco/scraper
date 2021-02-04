@@ -1,24 +1,9 @@
-function childNodesTypeValid (candidates){
-    //VERIFICA O TIPO DO NO DE CADA FILHO
-    candidates.forEach(candidate => {
-        if(candidate.childNodes.length > 0){
-            candidate.childNodes.forEach(childNode => {
-                if(childNode.nodeType !== 3 || childNode.nodeType !== 8){
-                    candidate.childNodesTypeValid = true
-                }else{
-                    candidate.childNodesTypeValid = false
-                }
-            })
-        }
-    })
-}
-
 function filterFontSize(candidates) { //Extrai do CSS do elemento o tamanho de fonte como um float
     candidates.forEach(function (candidate) {
         let parsedCss = JSON.parse(candidate.computedCss);
         let fontSize = parsedCss['font-size'].replace('px', '');
         candidate.fontSize = parseFloat(fontSize)
-        if (typeof candidate.fontSize === 'undefined' || candidate.fontSize == 0){ //Se o tamanho da fonte for 0 ou indefinido zera chance do candidato ser o escolhido
+        if (typeof candidate.fontSize === 'undefined' || candidate.fontSize == 0) { //Se o tamanho da fonte for 0 ou indefinido zera chance do candidato ser o escolhido
             candidate.chances = 0
         }
     });
@@ -31,9 +16,9 @@ function fontSizeRankChances(candidates) {
         sizeRank.add(candidate.fontSize);
     });
     sizeRank = Array.from(sizeRank)
-    
+
     candidates.forEach(candidate => {
-        candidate.fontSizeRankPlacement = sizeRank.indexOf(candidate.fontSize)+1
+        candidate.fontSizeRankPlacement = sizeRank.indexOf(candidate.fontSize) + 1
         switch (candidate.fontSizeRankPlacement) {
             case 1:
                 if (candidate.chances == 'not_verified') {
@@ -113,4 +98,4 @@ function setOccurrences(candidates, bodyHtml) {
     });
 }
 
-module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances, childNodesTypeValid };
+module.exports = { filterFontSize, setOccurrences, fontSizeRankChances, tagNameChances };
