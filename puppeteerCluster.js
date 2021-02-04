@@ -25,7 +25,8 @@ async function render({ page, data: item }) {
     const nodeList = await page.evaluate(function () {
         let nodes = document.querySelectorAll('body *'); //CRITERIO DE EXCLUSAO 1
         const filteredNodes = [];
-        const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g); //CRITERIO DE EXCLUSAO 2
+        // const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g); //CRITERIO DE EXCLUSAO 2
+        const reaisRegex = new RegExp(/R\$\s?[1-9]{0,3}\.?\d{1,3},?\d{0,2}/g); //CRITERIO DE EXCLUSAO 2
         nodes.forEach(function (node) {
             try {
                 if (node.innerText.match(reaisRegex)
@@ -74,7 +75,7 @@ async function render({ page, data: item }) {
 
     let data = util.evaluateCriteria(item.candidates)
 
-    //util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
+    // util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
 
     item.runs.push(data);
     delete item.candidates //Remove a propriedade "candidatos" para que na proxima linha nao seja salva no JSON
@@ -109,10 +110,10 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        // if (item.siteName == 'Extra') { //Run only 1 position
+        if (item.siteName == 'Kabum') { //Run only 1 position
             await cluster.queue(item);
 
-        // }
+        }
     }
 
 

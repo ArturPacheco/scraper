@@ -50,10 +50,12 @@ function evaluateCriteria(candidates) {
 }
 
 function extractFloat(candidates) {
-    const reaisRegex = new RegExp(/(?:[1-9]\d{0,2}(?:\.\d{3})*),\d{2}/g);
+    const reaisRegex = new RegExp(/R\$\s?[1-9]{0,3}\.?\d{1,3},?\d{0,2}/g);
     candidates.forEach(candidate => {
         candidate.price = candidate.innerText.match(reaisRegex)
         candidate.price = candidate.price.map(v => v.replace('.', ''))
+        candidate.price = candidate.price.map(v => v.replace('R', ''))
+        candidate.price = candidate.price.map(v => v.replace('$', ''))
         candidate.price = candidate.price.map(v => v.replace(',', '.'))
         candidate.price = candidate.price.map(v => parseFloat(v))
         if (candidate.price.length <= 1) {
