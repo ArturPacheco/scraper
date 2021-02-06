@@ -1,4 +1,4 @@
-const productPages = require('./product-pages.json');
+const productPages = require('./personal-products.json');
 const { Cluster } = require('puppeteer-cluster');
 const clues = require('./clues');
 const util = require('./util');
@@ -78,11 +78,11 @@ async function render({ page, data: item }) {
 
     let data = util.evaluateCriteria(item.candidates)
 
-    util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
+    // util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
 
     item.runs.push(data);
     delete item.candidates //Remove a propriedade "candidatos" para que na proxima linha nao seja salva no JSON
-    fs.writeFileSync('product-pages.json', JSON.stringify(productPages, null, 2)) //Escreve novos resultados no JSON
+    fs.writeFileSync('personal-products.json', JSON.stringify(productPages, null, 2)) //Escreve novos resultados no JSON
 }
 
 
@@ -113,10 +113,10 @@ async function main() {
     await cluster.task(render);
 
     for (var item of productPages) {
-        if (item.siteName == 'Leroy Merlin') { //Run only 1 position
+        // if (item.siteName == 'Leroy Merlin') { //Run only 1 position
             await cluster.queue(item);
 
-        }
+        // }
     }
 
 
