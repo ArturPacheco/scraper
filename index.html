@@ -4,6 +4,7 @@
 <head>
     <title>Page Title</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -12,6 +13,47 @@
     </div>
 
     <script>
+        const preparedData = []
+        const preparedLabels = []
+
+        fetch('personal-products.json')
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                prepareChartData(data);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+
+        function prepareChartData(jsonData) {
+            jsonData.forEach(site => {
+                let graphObject = {}
+                graphObject.label = site.siteName
+                graphObject.data = []
+                site.runs.forEach(run => {
+                    if (run !== null) {
+                        graphObject.data.push(run.price[0])
+                        preparedLabels.push(run.timeStamp)
+                    } else {
+                        graphObject.data.push(null)
+                    }
+                });
+                preparedData.push(graphObject)
+            });
+        }
+
+        console.log(preparedData)
+        console.log(preparedLabels)
+
+        var labelsBuffer = preparedLabels
+        labelsBuffer.forEach(label => {
+            console.log('yolo')
+            var date = new Date(label * 1000)
+            labelsBuffer.push(date)
+        })
+
         var ctx = document.getElementById('myChart').getContext('2d');
         var chart = new Chart(ctx, {
             // The type of chart we want to create
@@ -19,12 +61,10 @@
 
             // The data for our dataset
             data: {
-                labels: [1612492162036,1612492162036],
+                labels: [0,1,2,3,4,5],
                 datasets: [{
-                    label: 'My First dataset',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: [0, 10, 5, 2, 20, 30, 45]
+                    label: 'Example',
+                    data: [2,1,2,2,3,2]
                 }]
             },
 

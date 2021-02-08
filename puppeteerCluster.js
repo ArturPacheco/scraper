@@ -70,12 +70,10 @@ async function render({ page, data: item }) {
     util.extractFloat(item.candidates)
     clues.lineThroughChances(item.candidates)
     clues.filterFontSize(item.candidates)
-    //clues.setOccurrences(item.candidates, bodyHtml)
     clues.fontSizeRankChances(item.candidates)
     clues.tagNameChances(item.candidates)
     clues.yPositionChances(item.candidates)
     
-
     let data = util.evaluateCriteria(item.candidates)
 
     // util.debug(item.candidates, item.siteName) //Metodo que imprime dados de cada candidato para debug
@@ -84,7 +82,6 @@ async function render({ page, data: item }) {
     delete item.candidates //Remove a propriedade "candidatos" para que na proxima linha nao seja salva no JSON
     fs.writeFileSync('personal-products.json', JSON.stringify(productPages, null, 2)) //Escreve novos resultados no JSON
 }
-
 
 
 async function main() {
@@ -115,10 +112,8 @@ async function main() {
     for (var item of productPages) {
         // if (item.siteName == 'Leroy Merlin') { //Run only 1 position
             await cluster.queue(item);
-
         // }
     }
-
 
     await cluster.idle();
     await cluster.close();

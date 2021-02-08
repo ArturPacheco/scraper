@@ -1,4 +1,5 @@
 const { printTable, Table } = require('console-table-printer');
+const fs = require('fs');
 
 function debug(candidates, siteName) {
 
@@ -32,9 +33,9 @@ function debug(candidates, siteName) {
     candidates.forEach(candidate => {
         if (count < 100) {
             var price = 0;
-            if(candidate.price.length > 1){
+            if (candidate.price.length > 1) {
                 price = (candidate.price.length + ' valores')
-            }else{
+            } else {
                 price = candidate.price
             }
             table.addRow({
@@ -85,10 +86,6 @@ function extractFloat(candidates) {
     candidates.forEach(candidate => {
 
     })
-}
-
-function splitAgglomeratedResult(candidates) {
-    //
 }
 
 module.exports = { evaluateCriteria, extractFloat, debug };
