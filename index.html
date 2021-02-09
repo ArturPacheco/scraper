@@ -8,69 +8,39 @@
 </head>
 
 <body>
-    <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+    <div class="chart-container" style="display: block; position: relative; height:600px; width:60%">
         <canvas id="myChart"></canvas>
     </div>
 
     <script>
-        const preparedData = []
-        const preparedLabels = []
 
-        fetch('personal-products.json')
+        fetch('chartData.json')
             .then(function (response) {
                 return response.json();
             })
             .then(function (data) {
-                prepareChartData(data);
+                console.log(data)
+                createChart(data);
             })
             .catch(function (err) {
                 console.log(err);
             });
 
-        function prepareChartData(jsonData) {
-            jsonData.forEach(site => {
-                let graphObject = {}
-                graphObject.label = site.siteName
-                graphObject.data = []
-                site.runs.forEach(run => {
-                    if (run !== null) {
-                        graphObject.data.push(run.price[0])
-                        preparedLabels.push(run.timeStamp)
-                    } else {
-                        graphObject.data.push(null)
-                    }
-                });
-                preparedData.push(graphObject)
+        function createChart(jsonData) {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: jsonData,
+
+                // Configuration options go here
+                options: {}
             });
+
         }
-
-        console.log(preparedData)
-        console.log(preparedLabels)
-
-        var labelsBuffer = preparedLabels
-        labelsBuffer.forEach(label => {
-            console.log('yolo')
-            var date = new Date(label * 1000)
-            labelsBuffer.push(date)
-        })
-
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'line',
-
-            // The data for our dataset
-            data: {
-                labels: [0,1,2,3,4,5],
-                datasets: [{
-                    label: 'Example',
-                    data: [2,1,2,2,3,2]
-                }]
-            },
-
-            // Configuration options go here
-            options: {}
-        });
+        Chart.defaults.line.spanGaps = true;
         chart.canvas.parentNode.style.height = '500px';
     </script>
 
