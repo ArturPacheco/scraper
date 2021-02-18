@@ -36,12 +36,15 @@
                 data: jsonData,
 
                 // Configuration options go here
-                options: {}
+                options: {
+                    legend: {
+                        display: true,
+                        position: 'right'
+                    }
+                }
             });
 
         }
-        Chart.defaults.line.spanGaps = true;
-        chart.canvas.parentNode.style.height = '500px';
     </script>
 
 </body>
