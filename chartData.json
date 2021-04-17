@@ -14,7 +14,9 @@
     1613005200000,
     1613095200000,
     1613350800000,
-    1613606400000
+    1613606400000,
+    1614038400000,
+    1614517200000
   ],
   "datasets": [
     {
@@ -22,8 +24,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#b82e2e",
-      "borderColor": "#b82e2e",
+      "backgroundColor": "#0099c6",
+      "borderColor": "#0099c6",
       "data": [
         {
           "x": 1612490400000,
@@ -88,6 +90,14 @@
         {
           "x": 1613606400000,
           "y": 284.05
+        },
+        {
+          "x": 1614038400000,
+          "y": 284.05
+        },
+        {
+          "x": 1614517200000,
+          "y": 284.05
         }
       ]
     },
@@ -96,8 +106,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#3366cc",
-      "borderColor": "#3366cc",
+      "backgroundColor": "#8b0707",
+      "borderColor": "#8b0707",
       "data": [
         {
           "x": 1612566000000,
@@ -138,6 +148,14 @@
         {
           "x": 1613606400000,
           "y": 265.05
+        },
+        {
+          "x": 1614038400000,
+          "y": 265.05
+        },
+        {
+          "x": 1614517200000,
+          "y": 299.9
         }
       ]
     },
@@ -146,8 +164,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#ff9900",
-      "borderColor": "#ff9900",
+      "backgroundColor": "#651067",
+      "borderColor": "#651067",
       "data": [
         {
           "x": 1612490400000,
@@ -211,6 +229,14 @@
         },
         {
           "x": 1613606400000,
+          "y": 349.9
+        },
+        {
+          "x": 1614038400000,
+          "y": 349.9
+        },
+        {
+          "x": 1614517200000,
           "y": 349.9
         }
       ]
@@ -220,8 +246,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#990099",
-      "borderColor": "#990099",
+      "backgroundColor": "#aaaa11",
+      "borderColor": "#aaaa11",
       "data": [
         {
           "x": 1612490400000,
@@ -281,6 +307,14 @@
         },
         {
           "x": 1613606400000,
+          "y": 349.9
+        },
+        {
+          "x": 1614038400000,
+          "y": 349.9
+        },
+        {
+          "x": 1614517200000,
           "y": 349.9
         }
       ]
@@ -290,8 +324,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#e67300",
-      "borderColor": "#e67300",
+      "backgroundColor": "#b82e2e",
+      "borderColor": "#b82e2e",
       "data": [
         {
           "x": 1612490400000,
@@ -355,6 +389,14 @@
         },
         {
           "x": 1613606400000,
+          "y": 339.97
+        },
+        {
+          "x": 1614038400000,
+          "y": 339.97
+        },
+        {
+          "x": 1614517200000,
           "y": 339.97
         }
       ]
@@ -364,8 +406,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#651067",
-      "borderColor": "#651067",
+      "backgroundColor": "#b82e2e",
+      "borderColor": "#b82e2e",
       "data": [
         {
           "x": 1612490400000,
@@ -430,6 +472,14 @@
         {
           "x": 1613606400000,
           "y": 279
+        },
+        {
+          "x": 1614038400000,
+          "y": 279
+        },
+        {
+          "x": 1614517200000,
+          "y": 294.9
         }
       ]
     },
@@ -438,8 +488,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#994499",
-      "borderColor": "#994499",
+      "backgroundColor": "#ff9900",
+      "borderColor": "#ff9900",
       "data": [
         {
           "x": 1612490400000,
@@ -504,6 +554,14 @@
         {
           "x": 1613606400000,
           "y": 316.17
+        },
+        {
+          "x": 1614038400000,
+          "y": 316.17
+        },
+        {
+          "x": 1614517200000,
+          "y": 339.97
         }
       ]
     },
@@ -512,8 +570,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#994499",
-      "borderColor": "#994499",
+      "backgroundColor": "#3366cc",
+      "borderColor": "#3366cc",
       "data": [
         {
           "x": 1612490400000,
@@ -578,6 +636,14 @@
         {
           "x": 1613606400000,
           "y": 339
+        },
+        {
+          "x": 1614038400000,
+          "y": 319
+        },
+        {
+          "x": 1614517200000,
+          "y": 319
         }
       ]
     },
@@ -586,8 +652,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#990099",
-      "borderColor": "#990099",
+      "backgroundColor": "#e67300",
+      "borderColor": "#e67300",
       "data": [
         {
           "x": 1612490400000,
@@ -652,6 +718,14 @@
         {
           "x": 1613606400000,
           "y": 254.89
+        },
+        {
+          "x": 1614038400000,
+          "y": 299.9
+        },
+        {
+          "x": 1614517200000,
+          "y": 299.9
         }
       ]
     },
@@ -660,8 +734,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#6633cc",
-      "borderColor": "#6633cc",
+      "backgroundColor": "#b82e2e",
+      "borderColor": "#b82e2e",
       "data": [
         {
           "x": 1612490400000,
@@ -718,6 +792,14 @@
         {
           "x": 1613606400000,
           "y": 399
+        },
+        {
+          "x": 1614038400000,
+          "y": 399
+        },
+        {
+          "x": 1614517200000,
+          "y": 399
         }
       ]
     },
@@ -726,8 +808,8 @@
       "fill": false,
       "lineTension": 0.15,
       "spanGaps": true,
-      "backgroundColor": "#66aa00",
-      "borderColor": "#66aa00",
+      "backgroundColor": "#aaaa11",
+      "borderColor": "#aaaa11",
       "data": [
         {
           "x": 1612490400000,
@@ -791,6 +873,14 @@
         },
         {
           "x": 1613606400000,
+          "y": 339.97
+        },
+        {
+          "x": 1614038400000,
+          "y": 339.97
+        },
+        {
+          "x": 1614517200000,
           "y": 339.97
         }
       ]

@@ -1,6 +1,6 @@
 const { printTable, Table } = require('console-table-printer');
 const moment = require('moment')
-const productPages = require('./personal-products.json')
+const productPages = require('./product-pages.json')
 
 moment.locale('pt-br')
 
